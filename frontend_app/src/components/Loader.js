@@ -12,7 +12,7 @@ export const Loader = () => {
                 <div className="loader-content">
                     <div className="loader-body">
                         <img alt='face scanning animation' src='/images/face_id.gif' />
-                        <p>Scanning</p>
+                        <p className='scanning'>ĐANG QUÉT KHUÔN MẶT</p>
                     </div>
                 </div>
             </div>

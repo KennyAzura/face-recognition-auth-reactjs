@@ -5,6 +5,8 @@ import userReducer from '../features/dashboard/userSlice'
 import matchReducer from '../features/dashboard/matchSlice'
 import detectReducer from '../features/dashboard/detectSlice'
 import similarityReducer from '../features/dashboard/similaritySlice'
+import TouristSliceReducer from '../features/dashboard/counterTouristSlice'
+import employeeSlice from '../features/dashboard/employeeSlice'
 
 export const store = configureStore({
     reducer: {
@@ -14,6 +16,8 @@ export const store = configureStore({
         match: matchReducer,
         detect: detectReducer,
         similarity: similarityReducer,
+        counter: TouristSliceReducer,
+        employee: employeeSlice
     },
     middleware: getDefaultMiddleware => getDefaultMiddleware({
         serializableCheck: false,

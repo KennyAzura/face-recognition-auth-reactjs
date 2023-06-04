@@ -1,0 +1,77 @@
+.employee-wrapper {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  right: 0;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  position: fixed;
+}
+.employee-container {
+  height: 70vh;
+  width: 50%;
+  background-color: white;
+  padding: 0 10px;
+  margin-right: 10rem;
+  margin-top: 6rem;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  position: relative;
+}
+
+.e-input {
+  font-family: Poppins-Regular;
+  font-weight: 400;
+  font-size: 16px;
+  color: black;
+  line-height: 1.2;
+  display: block;
+  height: 45px;
+  padding: 0 20px;
+  border: 2px solid rgb(90, 89, 89);
+}
+
+.icon {
+  font-size: 2rem;
+  right: 0;
+}
+
+.add {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 1rem 0;
+}
+
+.add-e {
+  color: rgb(37, 44, 252);
+  font-weight: bold;
+}
+
+.employee-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding-left: 1rem;
+}
+
+.employee-body.margin {
+    margin-top: 2rem;
+}
+
+.camera-e {
+  height: 70vh;
+  width: 50%;
+  background-image: url("../../public/images/camera.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding: 0 10px;
+  margin-left: 10rem;
+  margin-top: 6rem;
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  position: relative;
+}
+

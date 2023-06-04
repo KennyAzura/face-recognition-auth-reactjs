@@ -6,12 +6,13 @@ import { setFacenetError, setFacenetMessage, setOutline } from "../features/auth
 export const PictureControls = () => {
 
     const dispatch = useDispatch()
+    const fileInputRef = useRef()
+    
     const cameraStatus = useSelector(getCameraStatus)
     const screenshot = useSelector(getScreenshot)
     const activeTab = useSelector(getActiveTab)
     const activeSource = useSelector(getActiveSource)
     const imageURL = useSelector(getURL) 
-    const fileInputRef = useRef()
 
 
     const handleActiveSource = (source) => {
@@ -29,14 +30,14 @@ export const PictureControls = () => {
         dispatch(setCameraStatus('closed'))
         dispatch(setScreenshot(null))
         dispatch(setOutline('#ddd'))
-        dispatch(setFacenetMessage('Place the face in the oval.'))
+        dispatch(setFacenetMessage('Đặt khuôn mặt vào khung hình.'))
     }
 
     const handleCameraOpening = () => {
         dispatch(setCameraStatus('opened'))
         dispatch(setScreenshot(null))
         dispatch(setOutline('#ddd'))
-        dispatch(setFacenetMessage('Place the face in the oval.'))
+        dispatch(setFacenetMessage('Đặt khuôn mặt vào khung hình.'))
     }
 
     const handleFileInputClick = () => {
@@ -60,10 +61,10 @@ export const PictureControls = () => {
             }
             reader.readAsDataURL(input.files[0])
         } else if (input.files && input.files[0] && input.files[0].size > 1500000) {
-            err[activeTab] = {screenshot: 'The IMAGE file too large (max 1.5 MB).'}
+            err[activeTab] = {screenshot: 'Tệp hình ảnh quá lớn (max 1.5 MB).'}
             dispatch(setAuthError(err))
         } else {
-            err[activeTab] = {screenshot: 'No IMAGE selected.'}
+            err[activeTab] = {screenshot: 'Không có hình ảnh được chọn.'}
             dispatch(setAuthError(err))
         }
     }
@@ -75,7 +76,7 @@ export const PictureControls = () => {
 
     return(
         <>
-        <span className="wrap-image-label">Capture face image</span>
+        <span className="wrap-image-label">Chụp ảnh khuôn mặt</span>
         <div className="wrap-input100-image">
             <div className="form-check source-box">
                 <ul className="source-nav">
@@ -105,7 +106,7 @@ export const PictureControls = () => {
                     type="button"
                     className="zoom-out"
                     onClick={() => cameraStatus === 'closed' ? handleCameraOpening() : handleCameraClosing()}
-                >{screenshot != null ? 'Capture new image' : (cameraStatus === 'opened' ? 'Close Camera' : 'Open Camera')}</button>
+                >{screenshot != null ? 'Chụp ảnh mới' : (cameraStatus === 'opened' ? 'Đóng Camera' : 'Mở Camera')}</button>
             }
             {
                 activeSource === 'file' &&
@@ -113,7 +114,7 @@ export const PictureControls = () => {
                     type="button"
                     className="zoom-out"
                     onClick={() => handleFileInputClick()}
-                >{screenshot == null ? 'Choose Photo' : 'Choose New Photo'}</button>
+                >{screenshot == null ? 'Chọn hình ảnh' : 'Chọn hình ảnh mới'}</button>
                 <input
                     type="file"
                     className="hidden"
@@ -135,7 +136,7 @@ export const PictureControls = () => {
                         type="button"
                         className="zoom-out"
                         onClick={() => handleSendURL()}
-                    >Submit</button>
+                    >Xác nhận</button>
                 </div>
             }
         </div>

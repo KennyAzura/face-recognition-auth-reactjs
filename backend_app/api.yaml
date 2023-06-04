@@ -1,0 +1,56 @@
+swagger: "2.0"
+info:
+  title: This is my API for project face recognition in facenet
+  description: This is my company documentation made by me
+  version: 1.0
+  contact:
+    email: 2015838@dlu.edu.vn
+  license:
+    name: Apache 2.0
+    url: "http://apache.org/"
+  server:
+    -url: "http://localhost:3001/"
+    description: This is my local server
+    -url: "http://company.com/"
+    description: This is my company server
+
+schemes: [http, https]
+
+paths:
+  /api/count/tourists:
+    get:
+      summary: Return total tourists
+      description: It's get data object tourists from mongoDB
+      responses:
+        200:
+          description: Success
+        400:
+          description: User error
+        500:
+          description: Internal Server Error
+
+  /api/auth/register:
+    post:
+      summary: Posting data user
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+      - in: body
+        name: user
+        type: object
+        properties:
+          name:
+            type: string
+          email:
+            type: string
+          password:
+            type: string
+          screenshot:
+            type: string
+          description:
+            type: string
+      responses:
+        200:
+          description: OK

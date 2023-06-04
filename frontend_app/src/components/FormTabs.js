@@ -21,11 +21,11 @@ export const FormTabs = () => {
             <li
                 className={'nav-item '+ (activeTab === 'login' ? 'active' : '')}
                 onClick={() => dispatch(setActiveTab('login'))}
-            >Login</li>
+            >Đăng nhập</li>
             <li
                 className={'nav-item '+ (activeTab === 'register' ? 'active' : '')}
                 onClick={() => dispatch(setActiveTab('register'))}
-            >Register</li>
+            >Đăng ký</li>
         </ul>
         <div className='form-container'>
             <Alert />

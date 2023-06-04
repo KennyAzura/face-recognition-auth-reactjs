@@ -32,6 +32,7 @@ export const Register = ({enableInput}) => {
             faces.length !== 0
         ){
             const user = {name, email, password, screenshot, descriptor: Object.values(faces[0].descriptor)}
+            console.log(user)
             dispatch(registerUser(user)).then(payload => {
                 if (payload.meta.requestStatus === 'fulfilled') {
                     <Navigate to="/dashboard" />
@@ -42,24 +43,24 @@ export const Register = ({enableInput}) => {
 
     const validateInputs = () => {
         if(name == null){
-            dispatch(setAuthError({register:{name: 'The NAME field is required.'}}))
+            dispatch(setAuthError({register:{name: 'Vui lòng nhập tên.'}}))
         } else {
             dispatch(setAuthError({register:{name:null}}))
         }
         if(email == null){
-            dispatch(setAuthError({register:{email: 'The EMAIL field is required.'}}))
+            dispatch(setAuthError({register:{email: 'Vui lòng nhập email.'}}))
         } else if (!email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
-            dispatch(setAuthError({register:{email: 'The EMAIL field is not in the standard form.'}}))
+            dispatch(setAuthError({register:{email: 'Email không hợp lệ.'}}))
         } else {
             dispatch(setAuthError({register:{email:null}}))
         }
         if(screenshot == null){
-            dispatch(setAuthError({register:{screenshot: 'A face IMAGE is required.'}}))
+            dispatch(setAuthError({register:{screenshot: 'Hình ảnh khuôn mặt là bắt buộc.'}}))
         } else {
             dispatch(setAuthError({register:{screenshot:null}}))
         }
         if(password !== repeatPassword){
-            dispatch(setAuthError({register:{repeatPassword: 'The PASSWORD and REPEAT PASSWORD fields do not match.'}}))
+            dispatch(setAuthError({register:{repeatPassword: 'Mật khẩu và nhập lại mật khẩu không khớp.'}}))
         } else {
             dispatch(setAuthError({register:{repeatPassword:null}}))
         }
@@ -68,16 +69,16 @@ export const Register = ({enableInput}) => {
     const validatePassword = () => {
         let warnings = []
         if(password == null){
-            warnings.push('The PASSWORD field is required.')
+            warnings.push('Vui lòng nhập mật khẩu.')
         } else {
             if (password.length < 6){
-                warnings.push('The PASSWORD field must exceed 6 characters.')
+                warnings.push('Mật khẩu phải chứa ít nhất 6 ký tự.')
             }
             if (!password.match(/[A-Z]/g)){
-                warnings.push('The PASSWORD field must contain at least one uppercase letter.')
+                warnings.push('Mật khẩu phải chứa ít nhất một ký viết hoa.')
             }
             if (!password.match(/[a-z]/g)){
-                warnings.push('The PASSWORD field must contain at least one lowercase letter.')
+                warnings.push('Mật khẩu phải chứa ít nhất một ký tự viết thường.')
             }
         }
         dispatch(setAuthError({register: {password: (warnings.length > 0 ? warnings : null)} }))
@@ -92,7 +93,7 @@ export const Register = ({enableInput}) => {
                     name="name"
                     id="name"
                     className="my-input input50"
-                    placeholder="Name"
+                    placeholder="Tên"
                     disabled={isFirefox ? false : true}
                     value={name || ''}
                     onChange={(e) => dispatch(setRegisterName(e.target.value))}
@@ -118,7 +119,7 @@ export const Register = ({enableInput}) => {
                     name="register-password"
                     id="register-password"
                     className="my-input input50"
-                    placeholder="Password"
+                    placeholder="Mật khẩu"
                     disabled={isFirefox ? false : true}
                     value={password || ''}
                     onKeyUp={validatePassword}
@@ -132,7 +133,7 @@ export const Register = ({enableInput}) => {
                     name="repeat-password"
                     id="repeat-password"
                     className="my-input input50"
-                    placeholder="Repeat Password"
+                    placeholder="Nhập lại mật khẩu"
                     disabled={isFirefox ? false : true}
                     value={repeatPassword || ''}
                     onChange={(e) => dispatch(setRegisterRepeatPassword(e.target.value))}
@@ -146,7 +147,7 @@ export const Register = ({enableInput}) => {
                     type="button"
                     className="my-submit-btn zoom-in"
                     onClick={(e) => manageForm(e)}
-                >Register</button>
+                >Đăng ký</button>
             </div>
 
         </form>

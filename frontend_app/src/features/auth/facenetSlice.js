@@ -18,14 +18,24 @@ const initialState = {
 export const detectFaces = createAsyncThunk(
     'facenet/detectFaces',
     async (refs) => {
+        // Hiển thị hình ảnh gốc và vẽ kết quả nhận diện khuôn mặt
         const { previewRef, canvasRef } = refs
+        console.log(previewRef.current)
+        // Nhận diện khuôn mặt
         await faceapi.nets.ssdMobilenetv1.loadFromUri('facenet/models/ssd_mobilenetv1')
+        // Định vị các đặc điểm trên khuôn mặt
         await faceapi.nets.faceLandmark68Net.loadFromUri('facenet/models/face_landmark_68')
+        // Tạo các vectors mô tả khuôn mặt
         await faceapi.nets.faceRecognitionNet.loadFromUri('facenet/models/face_recognition')
+        // Trích xuất các đặc trưng trên khuôn mặt thành một vector
         const faces = await faceapi.detectAllFaces(previewRef.current).withFaceLandmarks().withFaceDescriptors()
+        // Lưu kích thước hiển thị của hình ảnh gốc
         const displaySize = { width: previewRef.current.width, height: previewRef.current.height }
+        // Đảm bảo trùng kích thước
         faceapi.matchDimensions(canvasRef.current, displaySize)    
+        // Điều chỉnh kết quả nhận diện khuôn mặt sao cho phù hợp với kích thược hiển thị
         const resizedDetections = faceapi.resizeResults(faces, displaySize)
+        console.log(resizedDetections)
         return resizedDetections
     }
 )

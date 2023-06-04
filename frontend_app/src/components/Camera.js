@@ -29,7 +29,7 @@ export const Camera = () => {
     const handleCameraError = () => {
         dispatch(setCameraStatus('closed'))
         const err = {}
-        err[activeTab] = {serverErr: 'There was a problem accessing the WEBCAM. Grant permission and reload the page.'}
+        err[activeTab] = {serverErr: 'Đã xảy ra sự cố khi truy cập WEBCAM. Cấp quyền và tải lại trang.'}
         dispatch(setAuthError(err))
     }
 
@@ -47,11 +47,11 @@ export const Camera = () => {
                 if (faces.length === 1 && faces[0].score > 0.5) {
                     counter++
                     dispatch(setOutline('#00ff00'))
-                    dispatch(setFacenetMessage('Stand still for ' + Math.round(4 - (counter / 10)) + ' seconds.'))
+                    dispatch(setFacenetMessage('Nhìn thẳng vào Camera và giữ yên trong ' + Math.round(4 - (counter / 10)) + ' giây.'))
                 } else {
                     counter = 0
                     dispatch(setOutline('#f00000'))
-                    dispatch(setFacenetMessage('Place the face in the oval.'))
+                    dispatch(setFacenetMessage('Đặt khuôn mặt vào khung hình.'))
                 }
             } else {
                 takeScreenshot()

@@ -1,10 +1,5 @@
-/*!
- * Bootstrap v4.0.0-beta (https://getbootstrap.com)
- * Copyright 2011-2017 The Bootstrap Authors
- * Copyright 2011-2017 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- */
- @media print {
+
+@media print {
   *,
   *::before,
   *::after {
@@ -599,8 +594,8 @@ pre code {
 .container {
   margin-right: auto;
   margin-left: auto;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 10px;
+  padding-left: 10px;
   width: 100%;
 }
 
@@ -624,7 +619,7 @@ pre code {
 
 @media (min-width: 1200px) {
   .container {
-    max-width: 1140px;
+    max-width: 1500px;
   }
 }
 
@@ -642,8 +637,6 @@ pre code {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
 }
 
 .no-gutters {
@@ -1092,7 +1085,7 @@ pre code {
   .col-lg-3 {
     -ms-flex: 0 0 25%;
         flex: 0 0 25%;
-    max-width: 25%;
+    max-width: 20%;
   }
   .col-lg-4 {
     -ms-flex: 0 0 33.333333%;
