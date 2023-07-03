@@ -9,6 +9,7 @@ import {
   getEmployees,
 } from "../features/dashboard/employeeSlice";
 import RegisterEmployee from "./RegisterEmployee";
+import { LoaderSlim } from "./LoaderSlim";
 
 export default function DataGridEmployee() {
   const dispatch = useDispatch();
@@ -17,6 +18,8 @@ export default function DataGridEmployee() {
   const [addEmployee, setAddEmployee] = useState(false);
   const [data, setData] = useState([]);
   const [ids, setIds] = useState([]);
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const columns = [
     // {
@@ -51,7 +54,7 @@ export default function DataGridEmployee() {
     },
     {
       field: "email",
-      headerName: "Số điện thoại",
+      headerName: "Email",
       type: "email",
       width: 300,
       editable: true,
@@ -68,11 +71,18 @@ export default function DataGridEmployee() {
 
   useEffect(() => {
     setData(employees);
+    setIsLoading(false)
   }, [employees]);
 
+  if (isLoading) {
+    return <LoaderSlim status={isLoading} />;
+  }
+
   return (
-    <Box sx={{ height: "100%", width: "100%" }}>
-      {addEmployee && <RegisterEmployee handleAddEmployee={handleAddEmployee}/>}
+    <Box sx={{ height: "100%", width: "107%" }}>
+      {addEmployee && (
+        <RegisterEmployee handleAddEmployee={handleAddEmployee} />
+      )}
       <Box
         sx={{
           display: "flex",

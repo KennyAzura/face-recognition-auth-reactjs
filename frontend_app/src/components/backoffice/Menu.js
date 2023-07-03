@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import {
@@ -8,6 +8,8 @@ import {
   setAuthError,
   setUser,
 } from "../../features/auth/authSlice";
+import { FaTh, FaUserAlt, FaRegChartBar } from "react-icons/fa";
+import { TbFaceId } from "react-icons/tb";
 import { resetMatchState } from "../../features/dashboard/matchSlice";
 import {
   getPicture,
@@ -56,6 +58,29 @@ export const Menu = () => {
     );
   }, [dispatch, user.email, user.token]);
 
+  const menuItem = [
+    {
+      path: "/dashboard",
+      name: "Dashboard",
+      icon: <FaTh />,
+    },
+    {
+      path: "/manage-tourist",
+      name: "Quản lý khách du lịch",
+      icon: <FaUserAlt />,
+    },
+    {
+      path: "/manage-employee",
+      name: "Quản lý nhân viên",
+      icon: <FaRegChartBar />,
+    },
+    {
+      path: "/attendance-employee",
+      name: "Chấm công nhân viên",
+      icon: <TbFaceId />,
+    },
+  ];
+
   return (
     <div className="row">
       <div className="col-12">
@@ -70,28 +95,19 @@ export const Menu = () => {
           <h4>{user.name}</h4>
           <p>{user.email}</p>
         </div>
-        <NavLink to="/dashboard">
-          <button type="button" className="zoom-in menu">
-            Dashboard
-          </button>
-        </NavLink>
-        <NavLink to="/manage-tourist">
-          <button type="button" className="zoom-in menu">
-            Quản lý khách du lịch
-          </button>
-        </NavLink>
-        <NavLink to="/manage-employee">
-          <button type="button" className="zoom-in menu">
-            Quản lý nhân viên
-          </button>
-        </NavLink>
-        <NavLink to="/attendance-employee">
-          <button type="button" className="zoom-in menu">
-            Điểm danh nhân viên
-          </button>
-        </NavLink>
+        {menuItem.map((item, index) => (
+          <NavLink
+            to={item.path}
+            key={index}
+            className="link"
+            activeclassname="active"
+          >
+            <div className="icon">{item.icon}</div>
+            <div className="link_text">{item.name}</div>
+          </NavLink>
+        ))}
         <button type="button" className="zoom-in" onClick={logout}>
-          Log out
+          Đăng xuất
         </button>
       </div>
     </div>

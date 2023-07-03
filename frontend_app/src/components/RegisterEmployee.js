@@ -20,6 +20,7 @@ const RegisterEmployee = ({ handleAddEmployee }) => {
   const handleChangeFile = (newFile) => {
     setFile(newFile);
   };
+  
   return (
     <form className="employee-wrapper">
       <div className="camera-e"></div>

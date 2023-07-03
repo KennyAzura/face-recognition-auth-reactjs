@@ -14,7 +14,6 @@ import { getListWeek } from "../../features/dashboard/counterTouristSlice";
 
 function PieWeek({weekCurrent}) {
   const listWeek = useSelector(getListWeek);
-
   let totalListWeek = listWeek.reduce(
     (total, item) => {
       total.totalCountIn += item.totalCountIn;
@@ -85,6 +84,7 @@ function PieWeek({weekCurrent}) {
     fontWeight: "regular",
     size: "16px",
   };
+
   return (
     <AccumulationChartComponent
       id="pie-chart"
@@ -101,20 +101,6 @@ function PieWeek({weekCurrent}) {
       subTitle="Trong năm 2023 - 2024"
       subTitleStyle={subTitle}
     >
-       {/* <div className="totalPie-Month">
-        <p className="totalPie-Month_item green">
-          Tổng vào:{" "}
-          {totalListWeek.map((item) =>
-            item.x === "Vào" ? item.y.toLocaleString("en-US") : null
-          )}
-        </p>
-        <p className="totalPie-Month_item red">
-          Tổng ra:{" "}
-          {totalListWeek.map((item) =>
-            item.x === "Ra" ? item.y.toLocaleString("en-US") : null
-          )}
-        </p>
-      </div> */}
       <Inject
         services={[
           AccumulationLegend,

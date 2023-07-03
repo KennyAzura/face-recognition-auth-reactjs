@@ -21,7 +21,7 @@ export const detectFaces = createAsyncThunk(
         // Hiển thị hình ảnh gốc và vẽ kết quả nhận diện khuôn mặt
         const { previewRef, canvasRef } = refs
         console.log(previewRef.current)
-        // Nhận diện khuôn mặt
+        // Phát hiện khuôn mặt
         await faceapi.nets.ssdMobilenetv1.loadFromUri('facenet/models/ssd_mobilenetv1')
         // Định vị các đặc điểm trên khuôn mặt
         await faceapi.nets.faceLandmark68Net.loadFromUri('facenet/models/face_landmark_68')

@@ -9327,6 +9327,7 @@ iframe {
 }
 
 .zoom-in{
+  width: 121%;
   transform: translate(0, 0) rotate(0) skewX(0) skewY(0) scaleX(1) scaleY(1);
   cursor: pointer;
   transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
@@ -9338,6 +9339,8 @@ iframe {
 .zoom-in:hover {
   transform: translate(0, 0) rotate(0) skewX(0) skewY(0) scaleX(1.05) scaleY(1.05);
   box-shadow: 0 0 #0000, 0 0 #0000, 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  background:#1E40AF;
+  color: white;
 }
 .zoom-out{
   transform: translate(0, 0) rotate(0) skewX(0) skewY(0) scaleX(1.05) scaleY(1.05);
@@ -9352,4 +9355,11 @@ iframe {
 .zoom-out:hover {
   transform: translate(0, 0) rotate(0) skewX(0) skewY(0) scaleX(1) scaleY(1);
   box-shadow: none;
+}
+
+.loader-slim {
+  position: absolute; 
+  top: 50%; 
+  left: 50%;
+  transform: translate(-50%, -50%); 
 }

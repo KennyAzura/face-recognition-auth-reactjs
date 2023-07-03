@@ -14,7 +14,6 @@ export default function DataGridEmployee({ area, camera }) {
 
   const employees = useSelector(getEmployees);
   const datetime = useSelector(getDatetime);
-  console.log(datetime);
   const [data, setData] = useState([]);
   const [attendanceData, setAttendanceData] = useState([]);
 
@@ -23,7 +22,7 @@ export default function DataGridEmployee({ area, camera }) {
   const newAttendanceDataIn = attendanceData
     .filter((item) => item.type === "goin")
     .map((item) => {
-      const date = moment(item.timestamp).format("DD_MM_YYYY");
+      const date = moment.utc(item.timestamp).format("DD_MM_YYYY");
       const hour = moment.utc(item.timestamp).format("HH:mm:ss");
       return { ...item, date, inHour: hour };
     });
@@ -31,7 +30,7 @@ export default function DataGridEmployee({ area, camera }) {
   const newAttendanceDataOut = attendanceData
     .filter((item) => item.type === "goout")
     .map((item) => {
-      const date = moment(item.timestamp).format("DD_MM_YYYY");
+      const date = moment.utc(item.timestamp).format("DD_MM_YYYY");
       const hour = moment.utc(item.timestamp).format("HH:mm:ss");
       return { ...item, date, outHour: hour };
     });
@@ -40,9 +39,11 @@ export default function DataGridEmployee({ area, camera }) {
     const matchItemIn = newAttendanceDataIn.find(
       (item1) => item1.identity === convertName(item.fullName)
     );
+
     const matchItemOut = newAttendanceDataOut.find(
       (item1) => item1.identity === convertName(item.fullName)
     );
+
     const areaVideo = [
       ...new Set(newAttendanceDataIn.map((item) => item.area)),
     ];
@@ -87,9 +88,9 @@ export default function DataGridEmployee({ area, camera }) {
       if (isNaN(totalHours) || isNaN(totalMinutes)) {
         totalHoursWork = "NaT";
       } else if (totalMinutes === 0) {
-        totalHoursWork = totalHours + " giờ ";
+        totalHoursWork = totalHours + " giờ";
       } else if (totalHours === 0) {
-        totalHoursWork = totalMinutes + " phút ";
+        totalHoursWork = totalMinutes + " phút";
       } else {
         totalHoursWork = totalHours + " giờ " + totalMinutes + " phút";
       }
@@ -102,9 +103,25 @@ export default function DataGridEmployee({ area, camera }) {
     });
   console.log(newDataFilter);
 
-  const handleStatus = newDataFilter.map((item) =>
-    item.identity ? (item.status = "active") : (item.status = null)
-  );
+  const handleStatus = newDataFilter.map((item) => {
+    if (item.identity) {
+      const time = moment(item.inHour, "HH:mm:ss");
+      const startWork1 = moment("07:00:00", "HH:mm:ss");
+      const endWork1 = moment("08:30:00", "HH:mm:ss");
+      const startWork2 = moment("08:30:01", "HH:mm:ss");
+      const endWork2 = moment("18:00:00", "HH:mm:ss");
+      if (time.isBetween(startWork1, endWork1)) {
+        item.status = "gone";
+      }
+      if (time.isBetween(startWork2, endWork2)) {
+        item.status = "late";
+      }
+    } else {
+      item.status = null;
+    }
+  });
+
+  console.log(handleStatus);
 
   const columns = [
     // {
@@ -134,45 +151,72 @@ export default function DataGridEmployee({ area, camera }) {
       field: "status",
       headerName: "Trạng thái",
       width: 200,
-      renderCell: (params) => (
-        <div>
-          {params.value === "active" ? (
-            <Chip
-              label="Đã đi làm"
-              style={{
-                color: "green",
-                fontWeight: "bold",
-                backgroundColor: "transparent",
-                border: "3px solid green",
-              }}
-              icon={
-                <CheckCircleIcon
-                  style={{
-                    color: "green",
-                  }}
-                />
-              }
-            />
-          ) : (
-            <Chip
-              label="Không đi làm"
-              style={{
-                color: "red",
-                fontWeight: "bold",
-                backgroundColor: "transparent",
-                border: "3px solid red",
-              }}
-              icon={
-                <WarningIcon
-                  style={{
-                    color: "red",
-                  }}
-                />
-              }
-            />
-          )}
-        </div>
-      ),
+      renderCell: (params) => {
+        if (params.value === "gone") {
+          return (
+            <div>
+              <Chip
+                label="Đã đi làm"
+                style={{
+                  color: "green",
+                  fontWeight: "bold",
+                  backgroundColor: "transparent",
+                  border: "3px solid green",
+                }}
+                icon={
+                  <CheckCircleIcon
+                    style={{
+                      color: "green",
+                    }}
+                  />
+                }
+              />
+            </div>
+          );
+        } else if (params.value === "late") {
+          return (
+            <div>
+              <Chip
+                label="Đi trễ"
+                style={{
+                  color: "#E99928",
+                  fontWeight: "bold",
+                  backgroundColor: "transparent",
+                  border: "3px solid #E99928",
+                }}
+                icon={
+                  <CheckCircleIcon
+                    style={{
+                      color: "#E99928",
+                    }}
+                  />
+                }
+              />
+            </div>
+          );
+        } else {
+          return (
+            <div>
+              <Chip
+                label="Không đi làm"
+                style={{
+                  color: "red",
+                  fontWeight: "bold",
+                  backgroundColor: "transparent",
+                  border: "3px solid red",
+                }}
+                icon={
+                  <WarningIcon
+                    style={{
+                      color: "red",
+                    }}
+                  />
+                }
+              />
+            </div>
+          );
+        }
+      },
     },
     {
       field: "date",

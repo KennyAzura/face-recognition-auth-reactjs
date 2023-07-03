@@ -171,7 +171,9 @@ app.post("/api/auth/login", cors(corsOptions), async (req, res) => {
         }
       });
     } else {
-      return res.status(400).send("EMAIL or PASSWORD provided are incorrect.");
+      return res
+        .status(400)
+        .send("Email hay mật khẩu được cung cấp không chính xác.");
     }
   } catch (e) {
     console.log(e);
@@ -321,19 +323,19 @@ app.post("/api/image/get/matches", cors(corsOptions), (req, res) => {
     console.log(e);
     return res.status(500).send(e);
   }
-})
+});
 
-app.get("/api/count/tourists", async (req, res) => {
+app.get("/api/info/tourists", async (req, res) => {
   const countTourist = await Tourist.find();
   res.json(countTourist);
 });
 
-app.get("/api/count/employees", async (req, res) => {
+app.get("/api/info/employees", async (req, res) => {
   const countEmployee = await Employee.find();
   res.json(countEmployee);
 });
 
-app.get("/api/count/attendance-employee", async (req, res) => {
+app.get("/api/info/attendance-employee", async (req, res) => {
   const attendanceEmployee = await Attendance.find();
   res.json(attendanceEmployee);
 });

@@ -1,7 +1,4 @@
-/**
- * Sample for Column series
- */
-import React, {useState } from "react";
+import React, { useState } from "react";
 import {
   ChartComponent,
   SeriesCollectionDirective,
@@ -10,35 +7,17 @@ import {
   Legend,
   Category,
   Tooltip,
-  ColumnSeries,
   DataLabel,
   Highlight,
+  LineSeries,
 } from "@syncfusion/ej2-react-charts";
 import { Browser } from "@syncfusion/ej2-base";
-import { useSelector } from "react-redux";
-import { getDatetime } from "../../features/dashboard/counterTouristSlice";
 
-const SAMPLE_CSS = `
-     .control-fluid {
-         padding: 0px !important;
-     }`;
-
-const BarDay = ({ data }) => {
-  const [markerValue , setMarkerValue] = useState(false);
-  const datetime = useSelector(getDatetime);
-
-  const handleClickChart = () => {
-    const timeout = setTimeout(() => {
-      setMarkerValue(!markerValue);
-    }, 500); 
-    
-    return () => {
-      clearTimeout(timeout);
-    };
-  }
+const LineChart = ({ area1, area2, area3 }) => {
+  console.log(area3);
   const legendSettings = {
     visible: true,
-    title: "Khách du lịch",
+    title: "Khu du lịch",
     shapeHeight: 14,
     shapeWidth: 14,
     maximumLabelWidth: 50,
@@ -47,30 +26,27 @@ const BarDay = ({ data }) => {
 
   const marker = {
     dataLabel: {
-      visible: markerValue,
       font: {
-        fontWeight: 'bold',
+        fontWeight: "bold",
         size: 14,
-      }
+      },
     },
   };
 
   return (
-    <div className="control-pane">
-      <style>{SAMPLE_CSS}</style>
+    <div className="control-pane" style={{ marginTop: "30px" }}>
       <div className="control-section">
         <ChartComponent
           id="charts"
           style={{ textAlign: "center" }}
           legendSettings={legendSettings}
-          legendClick={handleClickChart}
           enableAnimation={true}
           primaryXAxis={{
             labelIntersectAction: Browser.isDevice ? "None" : "Trim",
             labelRotation: Browser.isDevice ? -45 : 0,
             labelStyle: { size: "16px" },
             valueType: "Category",
-            interval: 1,
+            interval: Math.ceil(area3.length / 10),
             majorGridLines: { width: 0 },
             majorTickLines: { width: 0 },
             edgeLabelPlacement: "Shift",
@@ -81,7 +57,7 @@ const BarDay = ({ data }) => {
             labelStyle: { size: "14px" },
             majorTickLines: { width: 0 },
             lineStyle: { width: 0 },
-            maximum: 10000,
+            maximum: 10500,
             interval: 1000,
           }}
           chartArea={{ border: { width: 0 } }}
@@ -90,15 +66,15 @@ const BarDay = ({ data }) => {
             header: "<b>${point.tooltip}</b>",
             shared: true,
           }}
-          width="500%"
+          width="100%"
           height="120%"
-          title={`Biểu đồ về tổng số lượng khách du lịch tham quan trong ngày ${datetime.split('_').join('-')}`}
+          title="Biểu đồ tổng số lượng khách du lịch tham quan các khu du lịch trong năm"
           titleStyle={{ size: "26px", fontWeight: "bold" }}
           loaded={onChartLoaded.bind(this)}
         >
           <Inject
             services={[
-              ColumnSeries,
+              LineSeries,
               Legend,
               Tooltip,
               Category,
@@ -108,24 +84,31 @@ const BarDay = ({ data }) => {
           />
           <SeriesCollectionDirective>
             <SeriesDirective
-              dataSource={data}
-              tooltipMappingName="hour"
-              xName="hour"
+              dataSource={area1}
+              tooltipMappingName="datetime"
+              xName="datetime"
               yName="totalCountIn"
-              name="Vào"
+              name="1"
               marker={marker}
-              fill="#00cc33"
-              type="Column"
+              type="Line"
             ></SeriesDirective>
             <SeriesDirective
-              dataSource={data}
-              tooltipMappingName="hour"
-              xName="hour"
-              yName="totalCountOut"
-              name="Ra"
+              dataSource={area2}
+              tooltipMappingName="datetime"
+              xName="datetime"
+              yName="totalCountIn"
+              name="2"
               marker={marker}
-              fill="#d41515"
-              type="Column"
+              type="Line"
+            ></SeriesDirective>
+            <SeriesDirective
+              dataSource={area3}
+              tooltipMappingName="datetime"
+              xName="datetime"
+              yName="totalCountIn"
+              name="3"
+              marker={marker}
+              type="Line"
             ></SeriesDirective>
           </SeriesCollectionDirective>
         </ChartComponent>
@@ -148,4 +131,4 @@ const BarDay = ({ data }) => {
     }
   }
 };
-export default BarDay;
+export default LineChart;

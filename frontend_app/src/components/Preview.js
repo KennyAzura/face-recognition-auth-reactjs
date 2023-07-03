@@ -70,7 +70,7 @@ export const Preview = (props) => {
         <div className="preview">
             {
                 screenshot != null && <>
-                    <canvas id="preview-canvas" ref={canvasRef} style={styles.canvas}>Your browser does not support the HTML canvas tag.</canvas>
+                    <canvas id="preview-canvas" ref={canvasRef} style={styles.canvas}>Trình duyệt của bạn không hỗ trợ canvas HTML.</canvas>
                     <img ref={previewRef} src={screenshot} alt="preview" style={styles.preview} onLoad={() => handleScreenshot(screenshot)} />
                 </>
             }

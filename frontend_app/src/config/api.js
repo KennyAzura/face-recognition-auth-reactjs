@@ -5,7 +5,7 @@ const AUTH_URL = "/api/auth";
 // BASE FACENET
 const IMAGE_URL = "/api/image";
 // BASE COUNT
-const COUNT_URL = "/api/count";
+const INFO_URL = "/api/info";
 
 export const REGISTER_URL = BACKEND_URL + AUTH_URL + "/register";
 export const LOGIN_URL = BACKEND_URL + AUTH_URL + "/login";
@@ -15,7 +15,7 @@ export const GET_IMAGE_URL = BACKEND_URL + IMAGE_URL + "/get/from/url";
 export const GET_PROFILE_PIC = BACKEND_URL + IMAGE_URL + "/get/profile/pic";
 export const GET_SIMILARITY_URL = BACKEND_URL + IMAGE_URL + "/get/matches";
 
-export const GET_COUNT_URL = BACKEND_URL + COUNT_URL + "/tourists";
-export const GET_COUNT_URL_EMPLOYEES = BACKEND_URL + COUNT_URL + "/employees";
+export const GET_COUNT_URL = BACKEND_URL + INFO_URL + "/tourists";
+export const GET_COUNT_URL_EMPLOYEES = BACKEND_URL + INFO_URL + "/employees";
 
-export const GET_ATTENDANCE_URL_EMPLOYEES = BACKEND_URL + COUNT_URL + "/attendance-employee";
+export const GET_ATTENDANCE_URL_EMPLOYEES = BACKEND_URL + INFO_URL + "/attendance-employee";

@@ -8,6 +8,7 @@ import "../css/Manage.css";
 import { GET_COUNT_URL, GET_COUNT_URL_EMPLOYEES } from "../config/api";
 import { setEmployees } from "../features/dashboard/employeeSlice";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { LoaderSlim } from "./LoaderSlim";
 
 export const AttendanceEmployee = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,9 @@ export const AttendanceEmployee = () => {
   const [camera, setCamera] = useState("Số 1");
   const [openArea, setOpenArea] = useState(false);
   const [openCamera, setOpenCamera] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(true);
+
   // Lấy tên của khu vực
   const uniqueNamesArea = [...new Set(totalTourist.map((item) => item.name))];
 
@@ -63,8 +67,28 @@ export const AttendanceEmployee = () => {
   useEffect(() => {
     fetch(GET_COUNT_URL)
       .then((res) => res.json())
-      .then((data) => setTotalTourist(data));
+      .then((data) => {
+        setTotalTourist(data);
+        setIsLoading(false);
+      });
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="container dashboard">
+        <div className="row">
+          <div className="col-lg-3 my-box left-side">
+            <Menu />
+          </div>
+          <div className="col-lg-9 right-side">
+            <div className="row flex-sb">
+              <LoaderSlim status={isLoading} />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container dashboard">
@@ -135,7 +159,7 @@ export const AttendanceEmployee = () => {
                 <Calendar />
               </div>
             </div>
-            <DataGridAttendanceEmployee area={area} camera={camera}/>
+            <DataGridAttendanceEmployee area={area} camera={camera} />
           </div>
         </div>
       </div>

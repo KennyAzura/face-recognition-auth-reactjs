@@ -10,14 +10,17 @@ import {
   Inject,
 } from "@syncfusion/ej2-react-charts";
 import { useSelector } from "react-redux";
-import { getDatetime, getListMonth } from "../../features/dashboard/counterTouristSlice";
+import {
+  getDatetime,
+  getListMonth,
+} from "../../features/dashboard/counterTouristSlice";
 
 function PieMonth() {
   const listMonth = useSelector(getListMonth);
   const datetime = useSelector(getDatetime);
 
-  const month = datetime.split("_")[1]
-  
+  const month = datetime.split("_")[1];
+
   let totalListMonth = listMonth.reduce(
     (total, item) => {
       total.totalCountIn += item.totalCountIn;
@@ -91,6 +94,7 @@ function PieMonth() {
     fontWeight: "regular",
     size: "16px",
   };
+
   return (
     <AccumulationChartComponent
       id=""
@@ -102,25 +106,13 @@ function PieMonth() {
       tooltip={{ enable: true, header: "Tổng trong tháng" }}
       width="700"
       height="250"
-      title={`Biểu đồ thể hiện tổng khách du lịch tham quan trong tháng ${parseInt(month)}`}
+      title={`Biểu đồ thể hiện tổng khách du lịch tham quan trong tháng ${parseInt(
+        month
+      )}`}
       titleStyle={title}
       subTitle="Trong năm 2023 - 2024"
       subTitleStyle={subTitle}
     >
-      {/* <div className="totalPie-Month">
-        <p className="totalPie-Month_item green">
-          Tổng vào:{" "}
-          {totalListMonth.map((item) =>
-            item.x === "Vào" ? item.y.toLocaleString("en-US") : null
-          )}
-        </p>
-        <p className="totalPie-Month_item red">
-          Tổng ra:{" "}
-          {totalListMonth.map((item) =>
-            item.x === "Ra" ? item.y.toLocaleString("en-US") : null
-          )}
-        </p>
-      </div> */}
       <Inject
         services={[
           AccumulationLegend,

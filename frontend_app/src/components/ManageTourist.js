@@ -13,6 +13,7 @@ import BarChart from "./BarChart";
 import StaticsDay from "./StaticsDay";
 import PieWeek from "./Charts/PieWeek";
 import PieMonth from "./Charts/PieMonth";
+import { LoaderSlim } from "./LoaderSlim";
 
 export const ManageTourist = () => {
   const [totalTourist, setTotalTourist] = useState([]);
@@ -22,6 +23,8 @@ export const ManageTourist = () => {
   const [openArea, setOpenArea] = useState(false);
   const [openCamera, setOpenCamera] = useState(false);
   const [openPlot, setOpenPlot] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const datetime = useSelector(getDatetime);
 
@@ -47,6 +50,7 @@ export const ManageTourist = () => {
   const endOfWeek = moment(startOfWeek).endOf("isoWeek").toDate();
 
   const listWeek = [];
+
   for (
     let day = startOfWeek;
     day <= endOfWeek;
@@ -124,8 +128,28 @@ export const ManageTourist = () => {
   useEffect(() => {
     fetch(GET_COUNT_URL)
       .then((res) => res.json())
-      .then((data) => setTotalTourist(data));
+      .then((data) => {
+        setTotalTourist(data);
+        setIsLoading(false);
+      });
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="container dashboard">
+        <div className="row">
+          <div className="col-lg-3 my-box left-side">
+            <Menu />
+          </div>
+          <div className="col-lg-9 right-side">
+            <div className="row flex-sb">
+              <LoaderSlim status={isLoading} />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container dashboard">
