@@ -1,6 +1,6 @@
 # face-recognition-auth-reactjs
 
-A simple authentication page with face recognition and face verification built with ReactJS and Face-api.js.
+Ứng dụng quản lý khu du lịch bằng nhận diện trong quản lý khu du lịch (đếm số lượng khách du lịch và chấm công nhân viên)
 
 ## Demo
 
@@ -8,16 +8,11 @@ A simple authentication page with face recognition and face verification built w
 
 ## Features
 
-- **Face recognition and verification (Login/Register)**
-- **Similarity Test Widget**
-- **Matching Test Widget**
-
-Minor features:
-
-- Comparison between different pre-trained neural networks.
-- Computation of Euclidean distance and Manhattan distance on `Labeled Faces in the Wild` dataset.
-- Evaluation of false positive and false negative matching.
-- Encryption/decryption of biometric data.
+- **Nhận diện khuôn mặt và xác thực (Login/Register)**
+- **Dashboard thống kê khách du lịch và thu nhập**
+- **Quản lý danh sách nhân viên**
+- **Đếm só lượng khách du lịch ra vào**
+- **Chấm công nhân viên bằng nhận diện khuôn mặt**
 
 ## System Requirements
 
