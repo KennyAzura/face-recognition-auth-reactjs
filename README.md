@@ -4,7 +4,7 @@ A simple authentication page with face recognition and face verification built w
 
 ## Demo
 
-- [https://demo-mmsa2022.albertovalerio.com/](https://demo-mmsa2022.albertovalerio.com/)
+- [https://demo-mmsa2022.albertovalerio.com/](https://github.com/KennyAzura/face-recognition-auth-reactjs/)
 
 ## Features
 
